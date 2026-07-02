@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TimeCard — Employee Attendance Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="punch-row" aria-hidden="true">
+      <span class="punch"></span><span class="punch"></span><span class="punch"></span>
+      <span class="punch"></span><span class="punch"></span><span class="punch"></span>
+      <span class="punch"></span><span class="punch"></span><span class="punch"></span>
+    </div>
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-mark">TC</span>
+        <div>
+          <h1>TimeCard</h1>
+          <p>Employee Attendance Dashboard</p>
+        </div>
+      </div>
+      <div class="topbar-meta">
+        <div class="live-indicator">
+          <span class="dot" id="liveDot"></span>
+          <span id="liveLabel">Connecting…</span>
+        </div>
+        <span class="meta-label">Today</span>
+        <span class="meta-value" id="todayDate">—</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+
+    <section class="panel form-panel" aria-labelledby="formTitle">
+      <h2 id="formTitle"><span class="tag">01</span> Log Attendance</h2>
+      <form id="attendanceForm" novalidate>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="empId">Employee ID</label>
+            <input type="text" id="empId" name="empId" placeholder="e.g. 103" required>
+            <span class="error" id="err-empId"></span>
+          </div>
+
+          <div class="field">
+            <label for="empName">Employee Name</label>
+            <input type="text" id="empName" name="empName" placeholder="e.g. Ananya Rao" required>
+            <span class="error" id="err-empName"></span>
+          </div>
+
+          <div class="field">
+            <label for="department">Department</label>
+            <select id="department" name="department" required>
+              <option value="" disabled selected>Select department</option>
+              <option>Engineering</option>
+              <option>Sales</option>
+              <option>Marketing</option>
+              <option>Human Resources</option>
+              <option>Finance</option>
+              <option>Operations</option>
+            </select>
+            <span class="error" id="err-department"></span>
+          </div>
+
+          <div class="field">
+            <label for="workingDays">Working Days</label>
+            <input type="number" id="workingDays" name="workingDays" min="1" placeholder="e.g. 24" required>
+            <span class="error" id="err-workingDays"></span>
+          </div>
+
+          <div class="field">
+            <label for="presentDays">Present Days</label>
+            <input type="number" id="presentDays" name="presentDays" min="0" placeholder="e.g. 22" required>
+            <span class="error" id="err-presentDays"></span>
+          </div>
+
+          <div class="field">
+            <label for="leaveDays">Leave Days</label>
+            <input type="number" id="leaveDays" name="leaveDays" min="0" placeholder="e.g. 2" required>
+            <span class="error" id="err-leaveDays"></span>
+          </div>
+        </div>
+
+        <div class="form-footer">
+          <p class="form-hint" id="formHint">All fields are required. Present + Leave days should stay within Working days. Entries save live — everyone viewing this page sees updates instantly.</p>
+          <button type="submit" class="btn-submit" id="submitBtn">Add Entry</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel report-panel" aria-labelledby="reportTitle">
+      <div class="report-head">
+        <h2 id="reportTitle"><span class="tag">02</span> Attendance Report</h2>
+        <div class="report-stats">
+          <div class="stat">
+            <span class="stat-value" id="statCount">0</span>
+            <span class="stat-label">Entries</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value" id="statAvg">0%</span>
+            <span class="stat-label">Avg. Attendance</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table id="reportTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Department</th>
+              <th>Working</th>
+              <th>Present</th>
+              <th>Leave</th>
+              <th>Attendance %</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="reportBody">
+            <!-- rows injected by script.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <p class="empty-state" id="emptyState" hidden>No entries yet — log the first attendance record above.</p>
+    </section>
+
+  </main>
+
+  <footer class="page-footer">
+    <span>Attendance % = (Present Days ÷ Working Days) × 100</span>
+  </footer>
+
+<script type="module" src="script.js"></script>
+</body>
+</html>
